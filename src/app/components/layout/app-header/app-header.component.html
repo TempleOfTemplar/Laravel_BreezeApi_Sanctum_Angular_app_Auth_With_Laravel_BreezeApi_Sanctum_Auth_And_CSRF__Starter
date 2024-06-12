@@ -1,0 +1,51 @@
+<mat-toolbar>
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="toggleSidenavButtonClick.emit()"
+    *ngIf="isHandset">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span class="logo" routerLink="/">🩰 Тестовое приложение</span>
+  <div class="main-menu" *ngIf="!isHandset">
+    <a mat-button routerLink="/about">🙋🏻 О нас</a>
+  </div>
+  <span class="fill-space"></span>
+
+  <!-- DROPDOWN MENU -->
+  <ng-container *ngIf="currentUser else showDefaultUserAvatar">
+  <span>{{currentUser.email}}</span>
+
+  <button  mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  </ng-container>
+  <ng-template #showDefaultUserAvatar>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </ng-template>
+
+  <mat-menu #menu="matMenu">
+    <a mat-menu-item (click)="openLoginModal()">
+      <mat-icon>login</mat-icon>
+      <span>Войти</span>
+    </a>
+    <a mat-menu-item (click)="openRegisterModal()">
+      <mat-icon>how_to_reg</mat-icon>
+      <span>Зарегистрироваться</span>
+    </a>
+  </mat-menu>
+
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>settings_applications</mat-icon>
+      <span>Настройки</span>
+    </button>
+    <button mat-menu-item (click)="logoutClicked.emit()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Выйти</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

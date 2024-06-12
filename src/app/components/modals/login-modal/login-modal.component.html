@@ -1,0 +1,56 @@
+<h1 mat-dialog-title class="!text-center !font-semibold !text-md">Войти</h1>
+<div class="!pb-0" mat-dialog-content>
+  <form [formGroup]="loginForm">
+    <div>
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email"
+               matInput
+               [formControlName]="'email'"
+               [readonly]="isSubmitting$ | async"
+               [required]="true"/>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          поле "Email" обязательно к заполнению.
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('email')">
+          поле "Email" не соответствует формату электронной почты.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Пароль</mat-label>
+        <input autocomplete="current-password"
+               type="password"
+               matInput
+               [formControlName]="'password'"
+               [readonly]="isSubmitting$ | async"
+               [required]="true"/>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          поле "Пароль" обязательно к заполнению.
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('minLength')">
+          минимальная длина пароля {{ passwordMinLength }} символов.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <div class="justify-between flex w-full p-4 !pt-0">
+    <button class="px-4 py-2"
+            aria-label="Cancel Button"
+            matRipple
+            [mat-dialog-close]="null">Закрыть
+    </button>
+    <button
+      class="px-4 py-2 !cursor-pointer shadow-sm rounded-sm bg-blue-900 text-white hover:text-blue-900 hover:bg-white"
+      aria-label="Кнопка Войти"
+      matRipple
+      [disabled]="!loginForm.valid || (isSubmitting$ | async)"
+      (click)="submit()">
+      Войти
+    </button>
+  </div>
+</div>

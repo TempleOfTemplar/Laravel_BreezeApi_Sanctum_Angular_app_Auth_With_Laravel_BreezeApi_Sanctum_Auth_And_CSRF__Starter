@@ -1,0 +1,11 @@
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.main-menu {
+  margin: 0 16px;
+}
+
+.logo {
+  cursor: pointer;
+}
